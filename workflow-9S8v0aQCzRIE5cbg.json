@@ -1,0 +1,134 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -144,
+        -96
+      ],
+      "id": "3f537d47-e574-47af-af06-ad5cff950b3f",
+      "name": "When chat message received",
+      "webhookId": "001211b8-b994-4f12-abfa-0f1d84ea3167",
+      "notesInFlow": false,
+      "notes": "Hi"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "give the full assistance to the QA for the given queries"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        64,
+        -96
+      ],
+      "id": "2165ff1c-0f4a-4ec6-a738-f8ad936a97c6",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "qwen/qwen3-32b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        80,
+        0
+      ],
+      "id": "f0cc2672-cd1c-4422-b889-5d01787444fd",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "zCbuYbdHvPKGAHoG",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "issueKey": "KAN-3",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1,
+      "position": [
+        352,
+        64
+      ],
+      "id": "d610fba1-e4c9-4ed8-9e92-c0e89259eec5",
+      "name": "Get an issue in Jira Software",
+      "credentials": {
+        "jiraSoftwareCloudApi": {
+          "id": "gcMwjLJTayDzmDCu",
+          "name": "Jira SW Cloud account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get an issue in Jira Software": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "797eb8c2-bcb4-483f-8063-11a9cba9747b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7be18ba7d70668fc32ec946745f778f400d0b6d1db60b3aa94c12a890ffc6815"
+  },
+  "nodeGroups": [],
+  "id": "9S8v0aQCzRIE5cbg",
+  "tags": [
+    {
+      "updatedAt": "2026-06-11T08:00:05.680Z",
+      "createdAt": "2026-06-11T08:00:05.680Z",
+      "id": "qJV4vfClphhx2BzZ",
+      "name": "AI_3x_QA_Buddy"
+    }
+  ]
+}
